@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.matrixplanner.ShowCasesController"
+      prefHeight="400.0" prefWidth="600.0" spacing="10">
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+    <Label text="Show Cases" style="-fx-font-size: 20;"/>
+    <VBox fx:id="casesContainer" spacing="10" VBox.vgrow="ALWAYS">
+
+    </VBox>
+</VBox>

@@ -1,0 +1,9 @@
+.edit-button {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+}
+
+.delete-button {
+    -fx-background-color: red;
+    -fx-text-fill: white;
+}
