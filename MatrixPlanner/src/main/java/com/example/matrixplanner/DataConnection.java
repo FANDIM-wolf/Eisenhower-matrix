@@ -1,10 +1,6 @@
 package com.example.matrixplanner;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +16,36 @@ public class DataConnection {
             System.out.println(e.getMessage());
         }
         return connection;
+    }
+
+    public void logUser(String userName, String timeOfLogin) {
+        String query = "INSERT INTO User_logs (User_name, Time_of_login) VALUES (?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, timeOfLogin);
+            preparedStatement.executeUpdate();
+
+            System.out.println("User logged successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void archiveUser(String userName, String timeOfArchiving) {
+        String query = "INSERT INTO User_archives (User_name, Time_of_archiving) VALUES (?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, timeOfArchiving);
+            preparedStatement.executeUpdate();
+
+            System.out.println("User archived successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Object[]> getTasksWithDetailsByUserId(int userId) {
