@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class EditTaskController {
@@ -48,21 +49,21 @@ public class EditTaskController {
         String newTaskName = taskNameField.getText();
         String newTaskDescription = taskDescriptionField.getText();
         LocalDate newDateOfEnd = dateOfEndField.getValue();
-        String newTimeOfEx = timeOfExField.getText();
+        LocalTime newTimeOfEx = LocalTime.parse(timeOfExField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
         String newCategory = categoryField.getText();
 
         updateTaskInDatabase(taskId, newTaskName, newTaskDescription, newDateOfEnd, newTimeOfEx, newCategory);
     }
 
-    private void updateTaskInDatabase(int taskId, String taskName, String taskDescription, LocalDate dateOfEnd, String timeOfEx, String category) {
+    private void updateTaskInDatabase(int taskId, String taskName, String taskDescription, LocalDate dateOfEnd, LocalTime timeOfEx, String category) {
         String query = "UPDATE Task SET Name = ?, Description = ?, Date_of_the_end = ?, Time_of_ex = ?, category = ? WHERE Task_id = ?";
         try (Connection connection = databaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, taskName);
             preparedStatement.setString(2, taskDescription);
-            preparedStatement.setString(3, dateOfEnd.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            preparedStatement.setString(4, timeOfEx);
+            preparedStatement.setDate(3, java.sql.Date.valueOf(dateOfEnd));
+            preparedStatement.setTime(4, java.sql.Time.valueOf(timeOfEx));
             preparedStatement.setString(5, category);
             preparedStatement.setInt(6, taskId);
             preparedStatement.executeUpdate();

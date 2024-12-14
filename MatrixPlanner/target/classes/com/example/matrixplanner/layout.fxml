@@ -3,14 +3,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.matrixplanner.HelloController"
-      prefHeight="400.0" prefWidth="600.0">
-    <Label text="Main Window" style="-fx-font-size: 20;"/>
-    <Button text="Open Window 1" onAction="#handleOpenWindow1"/>
-    <Button text="Open Window 2" onAction="#handleOpenWindow2"/>
-    <Button text="Open Window 3" onAction="#handleOpenWindow3"/>
-    <Button text="Archive User" onAction="#handleArchiveUser"/>
-    <Button text="Add Task" onAction="#handleAddTask"/>
+      prefHeight="400.0" prefWidth="600.0" spacing="5" >
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
+    <Label text="Main Window" styleClass="label"/>
+    <Button fx:id="showCasesButton" text="Show cases" onAction="#handleOpenWindow1"/>
+    <Button fx:id="addClientButton" text="Add client" onAction="#handleOpenWindow2"/>
+    <Button fx:id="archiveUserButton" text="Archive User" onAction="#handleArchiveUser"/>
+    <Button fx:id="addTaskButton" text="Add Task" onAction="#handleAddTask"/>
 </VBox>

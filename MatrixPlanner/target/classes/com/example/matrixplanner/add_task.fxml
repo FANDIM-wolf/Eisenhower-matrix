@@ -3,15 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.matrixplanner.AddTaskController"
       prefHeight="300.0" prefWidth="400.0" spacing="10" alignment="CENTER">
     <Label text="Add Task" style="-fx-font-size: 16;"/>
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
     <TextField fx:id="taskNameField" promptText="Task Name"/>
     <TextField fx:id="taskDescriptionField" promptText="Task Description"/>
     <DatePicker fx:id="dateOfEndField" promptText="Date of End"/>
-    <DatePicker fx:id="timeOfExField" promptText="Time of Execution"/>
+    <TextField fx:id="timeOfExField" promptText="Time of Execution (HH:mm)"/>
     <TextField fx:id="categoryField" promptText="Category"/>
-    <Button text="Save" onAction="#handleSave"/>
+    <Button text="Save" onAction="#handleSave" style="-fx-background-color: black; -fx-text-fill: white;"/>
 </VBox>
+

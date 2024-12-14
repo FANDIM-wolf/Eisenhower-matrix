@@ -5,7 +5,8 @@ public class User {
     private String name;
     private String password;
 
-    // Getters and setters
+    // Геттеры и сеттеры
+
     public int getId() {
         return id;
     }
@@ -30,3 +31,4 @@ public class User {
         this.password = password;
     }
 }
+

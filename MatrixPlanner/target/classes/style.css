@@ -7,3 +7,58 @@
     -fx-background-color: red;
     -fx-text-fill: white;
 }
+
+/* style.css */
+
+/* Стили для кнопок */
+#showCasesButton {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+#addClientButton {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+#archiveUserButton {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+#addTaskButton {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+#saveButton {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Стили для меток */
+.label {
+    -fx-font-size: 20px;
+}
+
+/* Стили для текстовых полей */
+.text-field {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+/* Стили для дата-пикеров */
+.date-picker {
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}

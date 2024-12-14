@@ -3,10 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.matrixplanner.EditTaskController"
       prefHeight="300.0" prefWidth="400.0" spacing="10" alignment="CENTER">
+    <stylesheets>
+        <URL value="@/style.css" />
+    </stylesheets>
     <Label text="Edit Task" style="-fx-font-size: 16;"/>
     <TextField fx:id="taskIdField" promptText="Task ID" editable="false"/>
     <TextField fx:id="taskNameField" promptText="Task Name"/>

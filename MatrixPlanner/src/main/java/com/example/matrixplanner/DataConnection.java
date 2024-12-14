@@ -1,5 +1,9 @@
 package com.example.matrixplanner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +52,14 @@ public class DataConnection {
         }
     }
 
-    public List<Object[]> getTasksWithDetailsByUserId(int userId) {
+    public List<Object[]> getTasksByUserId() {
         List<Object[]> tasks = new ArrayList<>();
+        int userId = getUserIdFromScratchJson();
+        if (userId == -1) {
+            System.out.println("User ID not found in scratch.json");
+            return tasks;
+        }
+
         String query = "SELECT t.Task_id, t.Name, t.Description, t.Date_of_the_end, t.Time_of_ex, t.category " +
                 "FROM Task t " +
                 "JOIN Users_tasks ut ON t.Task_id = ut.Id_task " +
@@ -63,12 +73,12 @@ public class DataConnection {
 
             while (resultSet.next()) {
                 Object[] taskData = new Object[7];
-                taskData[0] = userId; // Add userId as the first element
+                taskData[0] = userId; // Add userId to the taskData array
                 taskData[1] = resultSet.getInt("Task_id");
                 taskData[2] = resultSet.getString("Name");
                 taskData[3] = resultSet.getString("Description");
-                taskData[4] = resultSet.getString("Date_of_the_end");
-                taskData[5] = resultSet.getString("Time_of_ex");
+                taskData[4] = resultSet.getDate("Date_of_the_end").toLocalDate();
+                taskData[5] = resultSet.getTime("Time_of_ex").toString();
                 taskData[6] = resultSet.getString("category");
                 tasks.add(taskData);
             }
@@ -78,4 +88,20 @@ public class DataConnection {
 
         return tasks;
     }
+
+    private int getUserIdFromScratchJson() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("scratch.json")) {
+            if (inputStream == null) {
+                throw new IOException("scratch.json not found");
+            }
+
+            User user = objectMapper.readValue(inputStream, User.class);
+            return user.getId();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return -1; // Invalid user ID
+        }
+    }
+
 }

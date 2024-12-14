@@ -14,34 +14,28 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class ShowCasesController {
 
     @FXML
     private VBox casesContainer;
 
-    public void setData(Object[] cases) {
+
+    public void setData(List<Object[]> cases) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        for (Object caseObj : cases) {
+        for (Object[] caseObj : cases) {
             HBox caseBox = new HBox(10);
 
             // Assuming caseObj is an array with userId, taskId, taskText, description, dateOfEnd, timeOfEx, category
-            int userId = (int) ((Object[]) caseObj)[0];
-            int taskId = (int) ((Object[]) caseObj)[1];
-            String taskText = (String) ((Object[]) caseObj)[2];
-            String description = (String) ((Object[]) caseObj)[3];
-            String dateOfEndStr = (String) ((Object[]) caseObj)[4];
-            String timeOfEx = (String) ((Object[]) caseObj)[5];
-            String category = (String) ((Object[]) caseObj)[6];
-
-            LocalDate dateOfEnd = null;
-            try {
-                dateOfEnd = LocalDate.parse(dateOfEndStr, formatter);
-            } catch (DateTimeParseException e) {
-                System.err.println("Invalid date format: " + dateOfEndStr);
-                continue; // Skip this case if the date is invalid
-            }
+            int userId = Integer.parseInt(caseObj[0].toString());
+            int taskId = Integer.parseInt(caseObj[1].toString());
+            String taskText = (String) caseObj[2];
+            String description = (String) caseObj[3];
+            LocalDate dateOfEnd = (LocalDate) caseObj[4];
+            String timeOfEx = (String) caseObj[5];
+            String category = (String) caseObj[6];
 
             // Combine all data into one string with spaces
             String combinedText = userId + " " + taskId + " " + taskText + " " + description + " " + dateOfEnd + " " + timeOfEx + " " + category;

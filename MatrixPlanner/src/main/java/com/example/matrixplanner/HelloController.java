@@ -33,23 +33,13 @@ public class HelloController {
 
     @FXML
     protected void handleOpenWindow1(ActionEvent event) {
-        int userId = getUserIdFromScratchJson();
-        if (userId != -1) {
-            List<Object[]> tasks = mainApp.getDatabaseConnection().getTasksWithDetailsByUserId(userId);
-            openNewWindow("Show Cases", "show_cases.fxml", tasks.toArray(new Object[0][]));
-        } else {
-            System.out.println("User ID not found in scratch.json");
-        }
+        List<Object[]> tasks = mainApp.getDatabaseConnection().getTasksByUserId();
+        openNewWindow("Show Cases", "show_cases.fxml", tasks);
     }
 
     @FXML
     protected void handleOpenWindow2(ActionEvent event) {
         openNewWindow("Add Client", "client.fxml", null);
-    }
-
-    @FXML
-    protected void handleOpenWindow3(ActionEvent event) {
-        openNewWindow("Edit Client", "edit_client.fxml", null);
     }
 
     @FXML
@@ -62,7 +52,7 @@ public class HelloController {
         openNewWindow("Add Task", "add_task.fxml", null);
     }
 
-    private void openNewWindow(String title, String fxmlFile, Object[] data) {
+    private void openNewWindow(String title, String fxmlFile, List<Object[]> data) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFile));
             Scene scene = new Scene(fxmlLoader.load(), 300, 200);
@@ -90,7 +80,6 @@ public class HelloController {
             e.printStackTrace();
         }
     }
-
     public void handleConnect(ActionEvent actionEvent) {
         // Test connection
         mainApp.getDatabaseConnection().getConnection();
