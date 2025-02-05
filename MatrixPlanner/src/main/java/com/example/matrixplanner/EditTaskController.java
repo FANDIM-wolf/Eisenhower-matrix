@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class EditTaskController {
 
@@ -49,8 +50,15 @@ public class EditTaskController {
         String newTaskName = taskNameField.getText();
         String newTaskDescription = taskDescriptionField.getText();
         LocalDate newDateOfEnd = dateOfEndField.getValue();
-        LocalTime newTimeOfEx = LocalTime.parse(timeOfExField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime newTimeOfEx = null;
         String newCategory = categoryField.getText();
+
+        try {
+            newTimeOfEx = LocalTime.parse(timeOfExField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+        } catch (DateTimeParseException e) {
+            System.out.println("Invalid time format. Please use HH:mm format.");
+            return;
+        }
 
         updateTaskInDatabase(taskId, newTaskName, newTaskDescription, newDateOfEnd, newTimeOfEx, newCategory);
     }
@@ -74,3 +82,4 @@ public class EditTaskController {
         }
     }
 }
+

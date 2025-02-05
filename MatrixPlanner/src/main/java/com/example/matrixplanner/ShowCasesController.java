@@ -25,6 +25,11 @@ public class ShowCasesController {
     public void setData(List<Object[]> cases) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+        // Display ID, Title, Category, and Time before showing tasks
+        Label headerLabel = new Label("ID | Title | Category | Time");
+        headerLabel.getStyleClass().add("header-label");
+        casesContainer.getChildren().add(headerLabel);
+
         for (Object[] caseObj : cases) {
             HBox caseBox = new HBox(10);
 
@@ -37,8 +42,8 @@ public class ShowCasesController {
             String timeOfEx = (String) caseObj[5];
             String category = (String) caseObj[6];
 
-            // Combine all data into one string with spaces
-            String combinedText = userId + " " + taskId + " " + taskText + " " + description + " " + dateOfEnd + " " + timeOfEx + " " + category;
+            // Combine task title, time, and category into one string
+            String combinedText = taskId + " | " + taskText + " | " + category + " | " + timeOfEx;
 
             Label caseLabel = new Label(combinedText);
             Button editButton = new Button("Edit");
@@ -71,7 +76,10 @@ public class ShowCasesController {
 
     private void handleDelete(int userId, int taskId, String taskText, String description, LocalDate dateOfEnd, String timeOfEx, String category) {
         // Implement delete functionality
+        DataConnection databaseConnection = new DataConnection();
+        databaseConnection.deleteTask(taskId);
         System.out.println("Delete: User ID = " + userId + ", Task ID = " + taskId + ", Task Text = " + taskText + ", Description = " + description + ", Date of End = " + dateOfEnd + ", Time of Ex = " + timeOfEx + ", Category = " + category);
+
     }
 
     private void openEditWindow(int userId, int taskId, String taskText, String description, LocalDate dateOfEnd, String timeOfEx, String category) {

@@ -104,4 +104,33 @@ public class DataConnection {
         }
     }
 
+    public void deleteUserTasks(int userId) {
+        String query = "DELETE FROM Users_tasks WHERE Id_user = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.executeUpdate();
+
+            System.out.println("User tasks deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    //Delete Task from data base by task_id
+    public void deleteTask(int taskId) {
+        String query = "DELETE FROM Task WHERE Task_id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, taskId);
+            preparedStatement.executeUpdate();
+
+            System.out.println("Task deleted successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
